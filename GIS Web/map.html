@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GIS Map Dashboard - Sri Lanka</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f3e5f5, #e1f5fe);
+      color: #4a148c;
+    }
+
+    header {
+      background-color: #6a1b9a;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      background: linear-gradient(to right, #8e24aa, #4a148c);
+      padding: 14px 20px;
+      font-size: 1.15rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+      transform: scale(1.05);
+    }
+
+    .container {
+      padding: 40px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .card:hover {
+      transform: scale(1.03);
+    }
+
+    .card img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+    }
+
+    .card-title {
+      padding: 15px;
+      font-weight: bold;
+      font-size: 16px;
+      text-align: center;
+      color: #6a1b9a;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      max-width: 800px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-content img {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 15px;
+    }
+
+    .modal-content h2 {
+      margin-top: 0;
+      color: #6a1b9a;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #aaa;
+    }
+
+    .close-btn:hover {
+      color: black;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #6a1b9a;
+      color: white;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>GIS Map Dashboard – Sri Lanka</h1>
+    <p>Click on a map to view detailed analysis</p>
+  </header>
+
+  <nav>
+    <a href="basic.html">Arc GIS</a>
+    <a href="map.html">Final Maps</a>
+    <a href="arcgis.html">ArcGIS Online</a>
+    <a href="googlemap.html">Google My Map</a>
+  </nav>
+
+  <div class="container">
+    <div class="grid" id="mapGrid">
+      <!-- Cards will be injected here -->
+    </div>
+  </div>
+
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle"></h2>
+      <p id="modalDescription"></p>
+      <img id="modalImage" src="" alt="">
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 GIS Dashboard | Prepared by: P. Jathursan (200821V) – Earth Resources Engineering, UOM
+  </footer>
+
+  <script>
+    const maps = [
+      {
+        title: "District Clusters of Sri Lanka",
+        image: "District cluster map.jpg",
+        desc: "This map highlights the spatial distribution of socio-economic clusters across Sri Lanka. Areas with high cluster significance are shaded distinctly to indicate regional disparities, aiding targeted development strategies."
+      },
+      {
+        title: "District Hotspot Map for Males",
+        image: "Hot spot map.jpg",
+        desc: "This map identifies cold and hot spots for the male population. It’s used to locate population density extremes, supporting public health, education, and labor market decisions."
+      },
+      {
+        title: "Center Province Google Earth Rainfall Map",
+        image: "Rainfall map 1.jpg",
+        desc: "Google Earth imagery highlights rainfall patterns in Central Province, providing valuable insight into water resource distribution and agricultural planning."
+      },
+      {
+        title: "Center Province Rainfall Map",
+        image: "Rainfall map 2.png",
+        desc: "This map shows varying rainfall intensities across Central Province using shaded tones, important for identifying flood-prone or cultivation-ready zones."
+      },
+      {
+        title: "Suitability Area Analysis Map",
+        image: "Suitability area map.jpg",
+        desc: "This map combines multiple criteria (slope, land use, rainfall) to assess land suitability for development, agriculture, and conservation."
+      },
+      {
+        title: "Railway Proposed Map – Rambukkana to Ruwanwella",
+        image: "Proposed Railway.jpg",
+        desc: "A conceptual railway alignment map to connect Rambukkana and Ruwanwella, improving transportation access and supporting economic development."
+      },
+      {
+        title: "Road Network Analysis Map",
+        image: "Network map.jpg",
+        desc: "Visualizes the road network coverage across Sri Lanka. Useful for transportation planning and identifying gaps in road infrastructure."
+      }
+    ];
+
+    const grid = document.getElementById('mapGrid');
+    const modal = document.getElementById('modal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDescription = document.getElementById('modalDescription');
+    const modalImage = document.getElementById('modalImage');
+
+    maps.forEach(map => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${map.image}" alt="${map.title}">
+        <div class="card-title">${map.title}</div>
+      `;
+      card.onclick = () => openModal(map);
+      grid.appendChild(card);
+    });
+
+    function openModal(map) {
+      modalTitle.textContent = map.title;
+      modalDescription.textContent = map.desc;
+      modalImage.src = map.image;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+    }
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    }
+  </script>
+</body>
+</html>

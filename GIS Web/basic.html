@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ArcGIS by Esri</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #e0f7fa, #e8f5e9);
+      color: #2e7d32;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    header {
+      background-color: #36c460;
+      color: white;
+      padding: 10px 10px;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(121, 91, 91, 0.2);
+    }
+
+    nav {
+      background: linear-gradient(to right, #07e9e9, #1172b3);
+      display: flex;
+      justify-content: center;
+      gap: 25px;
+      padding: 14px 20px;
+      border-bottom: 4px solid #1b5e20;
+      font-size: 1.15rem;
+    }
+
+    nav a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: 8px;
+      transition: background 0.3s ease, transform 0.2s;
+      position: relative;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: scale(1.05);
+    }
+
+    .container {
+      flex-grow: 1;
+      padding: 20px 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #0846d6;
+      margin-bottom: 20px;
+    }
+
+    h2 {
+      color: #0d0e09;
+      margin-bottom: 20px;
+    }
+    h3 {
+      color: #130109;
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
+
+    p {
+      font-size: 1.05rem;
+      max-width: 800px;
+      margin: 0 auto 30px auto;
+      line-height: 1.6;
+    }
+
+    /* Updated Image Gallery Styling */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 40px;
+      margin-top: 40px;
+      padding: 0 10px;
+    }
+
+    .image-gallery div {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      transition: transform 0.4s, box-shadow 0.4s;
+      text-align: center;
+    }
+
+    .image-gallery div:hover {
+      transform: scale(1.08);
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    .image-gallery img {
+      width: 100%;
+      height: auto;
+      max-height: 260px;
+      object-fit: contain;
+      border-radius: 12px;
+      margin-bottom: 12px;
+      transition: transform 0.3s ease-in-out;
+    }
+
+    .image-gallery p {
+      margin-top: 5px;
+      font-weight: 600;
+      color: #1b5e20;
+      font-size: 1rem;
+    }
+
+    footer {
+      background-color: #1b5e20;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      font-size: 0.9rem;
+      margin-top: auto;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+      }
+
+      nav {
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ArcGIS by Esri</h1>
+    <p>Explore the World with Powerful Mapping and Spatial Analysis Tools</p>
+  </header>
+
+  <nav>
+    <a href="basic.html">Arc GIS</a>
+    <a href="map.html">Final Maps</a>
+    <a href="arcgis.html">ArcGIS Online</a>
+    <a href="googlemap.html">Google My Map</a>
+  </nav>
+
+  <div class="container">
+    <h1>What is ArcGIS?</h1>
+    <p>
+      <h2>
+      ArcGIS is a comprehensive geographic information system developed by Esri. It allows users to create, manage, analyze, and map all types of data.
+      ArcGIS helps in making smart decisions based on spatial insights and is widely used across industries including urban planning, environmental science, and defense.
+      </h2>
+    </p>
+
+    <div class="image-gallery">
+      <div>
+        <img src="Arcmap.png" alt="ArcGIS Desktop" />
+        <p><h3>ArcGIS Desktop</h3></p>
+      </div>
+      <div>
+        <img src="gispro.jpeg" alt="ArcGIS Pro" />
+        <p><h3>ArcGIS Pro</h3></p>
+      </div>
+      <div>
+        <img src="arconline.jpg" alt="ArcGIS Online" />
+        <p><h3>ArcGIS Online</h3></p>
+      </div>
+      <div>
+        <img src="enterprise.jpg" alt="ArcGIS Enterprise" />
+        <p><h3>ArcGIS Enterprise</h3></p>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    &copy; 2025 ArcGIS by Esri | Designed for Learning | Prepared by: P. Jathursan (200821V) – Earth Resources Engineering, UOM
+  </footer>
+</body>
+</html>
