@@ -10,7 +10,7 @@ This web application showcases all the final GIS maps created during academic pr
 - Developed using web technologies for global accessibility
 
 ## Usage
-1. Visit the GitHub Pages link: [https://username.github.io/repository-name/]([https://username.github.io/repository-name/](https://jathursan1999.github.io/GIS_Maps/))
+1. Visit the GitHub Pages link: https://jathursan1999.github.io/GIS_Maps/
 2. Explore the maps by selecting different projects or analysis types
 3. Zoom, pan, and toggle layers to interact with the geospatial data
 
